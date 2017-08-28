@@ -1,0 +1,46 @@
+html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+}
+
+#map {
+    height: 100%;
+}
+
+
+#floating-panel {
+    position: absolute;
+    top: 50px;
+    left: 5%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    line-height: 30px;
+    padding-left: 10px;
+    box-shadow: 0 2px 2px 0 rgba(0 , 0 , 0 , 0.30),
+                0 0 0 1px rgba(0 , 0 , 0 , 0.08);
+}
+
+
+
+#floating-panel input {
+    margin-bottom: 10px;
+
+}
+
+
+
+ul.list-group {
+    position: absolute;
+    width: 224px;
+    height: 210px;
+    z-index: 6;
+    top: 250px;
+    left: 5%;
+    box-shadow: 0 2px 2px 0 rgba(0 , 0 , 0 , 0.30),
+                0 0 0 1px rgba(0 , 0 , 0 , 0.08);
+
+}
