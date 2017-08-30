@@ -16,16 +16,19 @@
         <button data-bind="click: filterMarkers" class="btn btn-primary">Filter</button>
  </div>
 
-
+<div class="card-block" id="list">
     <ul class="list-group">
-        <li class="list-group-item">New York</li>
-        <li class="list-group-item">San Francisco</li>
-        <li class="list-group-item">Los Angeles</li>
-        <li class="list-group-item">Dallas</li>
-        <li class="list-group-item">Chicago</li>
+        <li class="list-group-item" value="0" data-bind="text: locationLists_2[0].name, click: clickMarker"></li>
+        <li class="list-group-item" value="1" data-bind="text: locationLists_2[1].name, click: clickMarker"></li>
+        <li class="list-group-item" value="2" data-bind="text: locationLists_2[2].name, click: clickMarker"></li>
+        <li class="list-group-item" value="3" data-bind="text: locationLists_2[3].name, click: clickMarker"></li>
+        <li class="list-group-item" value="4" data-bind="text: locationLists_2[4].name, click: clickMarker"></li>
 
     </ul>
 
+
+
+</div>
 
 
 
@@ -44,7 +47,7 @@
     async defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-debug.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.js"></script>
-
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

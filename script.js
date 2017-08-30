@@ -3,6 +3,28 @@
 var map;
 
 
+// Axios Request
+
+
+var  clientID = "WBF3Z545NYGBB305UVSSOF01NXKK44NYVQSBCTLA2RI3NBNU",
+     clientSecret = "FVDG31MD4AC04M3ASLVBHSIC4YFGKHULSOYPAB2OAXWILZ31";
+
+
+
+    var locationLists_2 = [
+       { name: 'New York', latLng: { lat: 40.786998, lng: -73.975664 } , content: 'New York' },
+       { name: 'San Francisco', latLng: { lat: 37.763061, lng: -122.431935 }, content: 'San Francisco' },
+       { name: 'Los Angeles', latLng: { lat: 34.079078, lng: -118.242818 } , content: 'Los Angeles'},
+       { name: 'Chicago' , latLng: {lat: 41.881832 , lng: -87.623177} , content:'Chicago' },
+       { name:'Dallas' , latLng:{ lat: 33.940369 , lng: -84.692894} , content: 'Dallas' }
+    ];
+
+
+
+
+
+
+
 var koViewModel = function(map,locationList) {
   var self = this;
 
@@ -22,12 +44,31 @@ var koViewModel = function(map,locationList) {
 
     place.marker = new google.maps.Marker(markerOptions);
     
+    // FourSquares API
+    // AXIOS Request
+    let insideData = '';
     
+axios.get('https://api.foursquare.com/v2/venues/search?ll='+ place.latLng.lat + ',' + place.latLng.lng + '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=20170101' + '&query=' + place.name).then( (result) => {
+      
+
+      // name 
+      insideData += '<p class="text-center bold">'+result.data.response.venues[0].name + '</p>'; 
+      // Phone
+      insideData += '<p class="text-center"><a href="#">' + result.data.response.venues[0].contact.phone +'</a></p>';
+      // Street
+      insideData += '<p class="text-center">' + result.data.response.venues[0].location.formattedAddress[0] + '</p>';
+
+      //URL 
+      insideData += '<p class="text-center"><a href="'+ result.data.response.venues[0].url +'">' + result.data.response.venues[0].url  + '</a></p>';
+
   place.info = new google.maps.InfoWindow({
-      content: `
-        <p>${place.content}</p>
-      `
+      content: insideData
   });
+      
+});
+
+
+    
 
   place.marker.addListener('click' , function() {
     place.info.open(self.googleMap , place.marker);
@@ -66,6 +107,13 @@ var koViewModel = function(map,locationList) {
       place.marker.setMap(self.googleMap);
     });
   };
+
+
+  // Click in the Marker to Highlight it's Marker
+  this.clickMarker = function(dataInfo,event) {
+      var specificData = Number(event.target.value);
+      google.maps.event.trigger(dataInfo.allPlaces[specificData].marker, 'click');
+  }
 
   function Place(dataObj) {
     this.name = dataObj.name;

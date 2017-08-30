@@ -33,14 +33,37 @@ html, body {
 
 
 
-ul.list-group {
+#list {
     position: absolute;
-    width: 224px;
-    height: 210px;
+    width: 216px;
+    height: 200px;
     z-index: 6;
     top: 250px;
     left: 5%;
-    box-shadow: 0 2px 2px 0 rgba(0 , 0 , 0 , 0.30),
-                0 0 0 1px rgba(0 , 0 , 0 , 0.08);
 
 }
+
+
+
+.bold {
+    font-weight: bold;
+
+}
+
+
+a {
+    text-decoration: underline;
+    color: #00F;
+
+}
+
+
+
+
+
+
+
+
+
+
+
