@@ -12,17 +12,13 @@
 
 <div id="floating-panel">
         <b>Place: </b>
-        <input data-bind="value: userInput" class="form-control"/>
+        <input data-bind="value: userInput, valueUpdate: 'afterkeydown'" class="form-control"/>
         <button data-bind="click: filterMarkers" class="btn btn-primary">Filter</button>
  </div>
 
 <div class="card-block" id="list">
-    <ul class="list-group">
-        <li class="list-group-item" value="0" data-bind="text: locationLists_2[0].name, click: clickMarker"></li>
-        <li class="list-group-item" value="1" data-bind="text: locationLists_2[1].name, click: clickMarker"></li>
-        <li class="list-group-item" value="2" data-bind="text: locationLists_2[2].name, click: clickMarker"></li>
-        <li class="list-group-item" value="3" data-bind="text: locationLists_2[3].name, click: clickMarker"></li>
-        <li class="list-group-item" value="4" data-bind="text: locationLists_2[4].name, click: clickMarker"></li>
+    <ul class="list-group" data-bind="foreach: listisFiltered">
+        <li class="list-group-item" data-bind="text: name, click: clickMarker"></li>
 
     </ul>
 
@@ -41,6 +37,8 @@
 
 
 
+
+
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAP-_EUR5FdxRir90VKWGm9wmW2uCG13No&callback=initMap"
@@ -49,5 +47,6 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
+
 </body>
 </html>

@@ -72,6 +72,12 @@ axios.get('https://api.foursquare.com/v2/venues/search?ll='+ place.latLng.lat + 
 
   place.marker.addListener('click' , function() {
     place.info.open(self.googleMap , place.marker);
+    place.marker.setAnimation(google.maps.Animation.BOUNCE);
+
+    setTimeout(function() {
+      place.marker.setAnimation(null);
+
+    }, 1500);
 
   });
 
@@ -82,13 +88,42 @@ axios.get('https://api.foursquare.com/v2/venues/search?ll='+ place.latLng.lat + 
 
 
 
+  // // Click in the Marker to Highlight it's Marker
+  // self.clickMarker = function(place) {
+  //     google.maps.event.trigger(place.marker, 'click');
+  // }
+
+
+
   self.visiblePlaces = ko.observableArray();
+
+
+
 
   self.allPlaces.forEach(function(place) {
     self.visiblePlaces.push(place);
   });
 
+
+
   self.userInput = ko.observable('');
+
+
+	this.listisFiltered = ko.computed( function() {
+		var target = self.userInput().toLowerCase();
+		if (!target) {
+			return self.visiblePlaces();
+		} else {
+			return ko.utils.arrayFilter(self.visiblePlaces(), function(locationItem) {
+				var string = locationItem.name.toLowerCase();
+				var result = (string.search(target) >= 0);
+				return result;
+			});
+		}
+	}, self);
+
+
+
 
   self.filterMarkers = function() {
     var searchInput = self.userInput().toLowerCase();
@@ -109,11 +144,11 @@ axios.get('https://api.foursquare.com/v2/venues/search?ll='+ place.latLng.lat + 
   };
 
 
-  // Click in the Marker to Highlight it's Marker
-  this.clickMarker = function(dataInfo,event) {
-      var specificData = Number(event.target.value);
-      google.maps.event.trigger(dataInfo.allPlaces[specificData].marker, 'click');
-  }
+  // self.clickMarker = function(data) {
+  //     google.maps.event.trigger(data.marker , 'click');
+  // };
+
+
 
   function Place(dataObj) {
     this.name = dataObj.name;
@@ -121,10 +156,18 @@ axios.get('https://api.foursquare.com/v2/venues/search?ll='+ place.latLng.lat + 
     this.marker = null;
     this.info = null;
     this.content = dataObj.content;
+
+
+    this.clickMarker = function(place) {
+      google.maps.event.trigger(place.marker , 'click');
+
+    }
   }
+
+
+
   
 };
-
 
 
 
@@ -133,6 +176,8 @@ function initMap() {
         center: { lat: 40.166294, lng: -96.389016 },
         zoom: 4
     });
+
+
 
 
 google.maps.event.addDomListener(window, 'load', function(){
